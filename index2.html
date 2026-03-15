@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAK | WEB Director Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f2ec;
+    --accent: #c8a96e;
+    --accent2: #8b5e3c;
+    --muted: #9a9186;
+    --rule: #d8d2c8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245,242,236,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 6rem;
+    border-right: 1px solid var(--rule);
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent2);
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 2.5rem;
+  }
+  .hero-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 2;
+    margin-bottom: 3rem;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    padding: 1rem 2rem;
+    transition: all 0.3s;
+  }
+  .hero-cta:hover { background: var(--ink); color: var(--paper); }
+  .hero-cta-arrow { transition: transform 0.3s; }
+  .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem;
+    font-weight: 600;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,169,110,0.12);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 3rem;
+  }
+  .stat {
+    background: var(--paper);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-profile-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 1.2rem;
+    line-height: 2;
+  }
+
+  /* SECTION COMMON */
+  section { padding: 8rem 6rem; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 5rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1.5rem;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  .section-title-en {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* ABOUT / DIRECTOR PHILOSOPHY */
+  .about { background: var(--ink); color: var(--paper); }
+  .about .section-title { color: var(--paper); }
+  .about .section-num { color: var(--accent); }
+  .about .section-title-en { color: var(--muted); }
+  .about .section-header { border-color: rgba(255,255,255,0.1); }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+  .about-text p { font-size: 0.95rem; line-height: 2.2; color: rgba(245,242,236,0.75); margin-bottom: 1.5rem; }
+  .about-text strong { color: var(--accent); font-weight: 400; }
+
+  .skill-matrix { display: flex; flex-direction: column; gap: 1.2rem; }
+  .skill-row { display: flex; flex-direction: column; gap: 0.4rem; }
+  .skill-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .skill-bar {
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-fill {
+    position: absolute;
+    top: 0; left: 0; height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    animation: fillBar 1.5s ease forwards;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @keyframes fillBar { to { transform: scaleX(1); } }
+
+  /* WORK — VIGILO */
+  .work-intro {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    margin-bottom: 5rem;
+  }
+  .work-intro p { font-size: 0.95rem; color: var(--muted); line-height: 2; }
+
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-bottom: 5rem;
+    border: 1px solid var(--rule);
+  }
+  .process-step {
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: var(--accent);
+    z-index: 1;
+    background: var(--paper);
+    padding: 0.2rem;
+  }
+  .process-step:last-child::after { display: none; }
+  .process-step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--accent2);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .process-step-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .process-step-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.7; }
+
+  /* SITE MOCKUP */
+  .mockup-area {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+  }
+  .browser-mockup {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+  .browser-bar {
+    background: #e8e4de;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .browser-dot:nth-child(1) { background: #ff5f56; }
+  .browser-dot:nth-child(2) { background: #ffbd2e; }
+  .browser-dot:nth-child(3) { background: #27c93f; }
+  .browser-url {
+    margin-left: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    background: var(--paper);
+    padding: 0.3rem 1rem;
+    border-radius: 3px;
+    flex: 1;
+  }
+  .browser-content {
+    background: #0f0e0c;
+    min-height: 380px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-preview-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .site-preview-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: #c8a96e;
+    letter-spacing: 0.3em;
+  }
+  .site-preview-nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .site-preview-nav-links span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    color: rgba(245,242,236,0.4);
+    letter-spacing: 0.1em;
+  }
+  .site-preview-hero {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .site-preview-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    color: rgba(200,169,110,0.6);
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .site-preview-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: rgba(245,242,236,0.9);
+    line-height: 1.3;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .site-preview-btn {
+    display: inline-block;
+    border: 1px solid rgba(200,169,110,0.5);
+    color: rgba(200,169,110,0.7);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    padding: 0.5rem 1.5rem;
+  }
+  .site-preview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .site-preview-card {
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.15);
+    height: 50px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.45rem;
+    color: rgba(200,169,110,0.4);
+    letter-spacing: 0.1em;
+  }
+  .site-preview-bg {
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+  }
+
+  .mockup-side { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* PLANNING DOCS */
+  .doc-card {
+    border: 1px solid var(--rule);
+    padding: 1.5rem;
+    background: white;
+  }
+  .doc-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .doc-card-title::before {
+    content: '';
+    display: block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* WIREFRAME MOCKUP */
+  .wf-container { border: 1px solid var(--rule); padding: 1rem; background: #fafaf8; }
+  .wf-header { background: #e8e4de; height: 24px; border-radius: 2px; margin-bottom: 0.5rem; }
+  .wf-hero { background: #d8d2c8; height: 80px; border-radius: 2px; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; }
+  .wf-hero span { font-family: 'DM Mono', monospace; font-size: 0.5rem; color: var(--muted); }
+  .wf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
+  .wf-card { background: #e8e4de; height: 40px; border-radius: 2px; }
+
+  /* KPI TABLE */
+  .kpi-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  .kpi-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .kpi-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(216,210,200,0.4); vertical-align: middle; }
+  .kpi-table tr:last-child td { border-bottom: none; }
+  .kpi-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .kpi-badge.primary { background: rgba(200,169,110,0.15); color: var(--accent2); }
+  .kpi-badge.secondary { background: rgba(139,94,60,0.1); color: var(--accent2); }
+
+  /* TARGET PERSONA */
+  .persona-card {
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    background: white;
+    position: relative;
+  }
+  .persona-avatar {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  .persona-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+  .persona-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .persona-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .persona-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    border: 1px solid var(--rule);
+    padding: 0.2rem 0.6rem;
+    color: var(--muted);
+    border-radius: 2px;
+  }
+
+  /* COMPETITIVE ANALYSIS */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 2rem;
+  }
+  .comp-cell {
+    background: var(--paper);
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+  }
+  .comp-cell.header { background: var(--ink); color: var(--paper); }
+  .comp-name { font-size: 0.78rem; font-weight: 400; margin-bottom: 0.3rem; }
+  .comp-meta { font-family: 'DM Mono', monospace; font-size: 0.55rem; color: var(--muted); letter-spacing: 0.05em; }
+  .comp-cell.header .comp-meta { color: rgba(245,242,236,0.4); }
+  .comp-score {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+  }
+  .comp-highlight { border-top: 3px solid var(--accent); }
+
+  /* SCHEDULE */
+  .schedule-bar {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(216,210,200,0.4);
+  }
+  .schedule-bar:last-child { border-bottom: none; }
+  .schedule-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.05em; }
+  .schedule-track { background: rgba(216,210,200,0.3); height: 8px; border-radius: 1px; position: relative; }
+  .schedule-fill {
+    position: absolute;
+    top: 0; height: 100%;
+    border-radius: 1px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+  .schedule-fill.done { opacity: 1; }
+  .schedule-week-labels {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .week-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--muted);
+  }
+
+  /* REFLECTION */
+  .reflection { background: #1a1612; color: var(--paper); }
+  .reflection .section-title { color: var(--paper); }
+  .reflection .section-num { color: var(--accent); }
+  .reflection .section-title-en { color: var(--muted); }
+  .reflection .section-header { border-color: rgba(255,255,255,0.08); }
+
+  .reflection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .reflection-col h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+  }
+  .reflection-item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: start;
+  }
+  .reflection-bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    margin-top: 0.6rem;
+  }
+  .reflection-item p { font-size: 0.85rem; color: rgba(245,242,236,0.65); line-height: 1.9; }
+
+  /* CAREER GOAL */
+  .goal-section { text-align: center; padding: 6rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0 6rem; }
+  .goal-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1.5rem;
+  }
+  .goal-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .goal-body { font-size: 0.9rem; color: var(--muted); max-width: 500px; margin: 0 auto 3rem; line-height: 2; }
+
+  /* CONTACT */
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5rem 6rem;
+    border-top: 1px solid var(--rule);
+  }
+  .contact-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+  .contact-left p { font-size: 0.85rem; color: var(--muted); }
+  .contact-links { display: flex; gap: 1rem; }
+  .contact-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    padding: 0.8rem 1.8rem;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .contact-link:hover { background: var(--ink); color: var(--paper); }
+  .contact-link.primary { background: var(--ink); color: var(--paper); }
+  .contact-link.primary:hover { background: transparent; color: var(--ink); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 6rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* HORIZONTAL RULE DECORATION */
+  .deco-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+  .deco-line::before, .deco-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* TAG CHIP */
+  .chip {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--rule);
+    padding: 0.3rem 0.8rem;
+    color: var(--muted);
+    border-radius: 2px;
+    margin: 0.2rem;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 2rem; border-right: none; }
+    .hero-right { padding: 2rem; border-top: 1px solid var(--rule); }
+    section { padding: 4rem 2rem; }
+    .about-grid, .reflection-grid, .work-intro, .mockup-area { grid-template-columns: 1fr; gap: 2rem; }
+    .process-flow { grid-template-columns: 1fr 1fr; }
+    .comp-grid { grid-template-columns: 1fr 1fr; }
+    .contact-row { flex-direction: column; gap: 2rem; padding: 3rem 2rem; }
+    .goal-section { margin: 0; padding: 4rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">PAK</a>
+  <ul class="nav-links">
+    <li><a href="#about">Profile</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <p class="hero-tag">WEB Director Candidate</p>
+    <h1 class="hero-name">PAK<br><span>Hwansil</span></h1>
+    <p class="hero-title">— 朴 煥實</p>
+    <p class="hero-desc">
+      企画立案からサイト設計・進行管理まで、<br>
+      WEBディレクターとしての思考を実践するため<br>
+      現在、職業訓練校にて集中的に学習中。<br>
+      1年間の修行を経て、即戦力を目指しています。
+    </p>
+    <a href="#work" class="hero-cta">
+      作品と思考プロセスを見る <span class="hero-cta-arrow">→</span>
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">DIR</div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">1</span>
+        <span class="stat-label">Main Work</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Pages Built</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Growth Mind</span>
+      </div>
+    </div>
+    <div class="hero-profile-note">
+      東京都出身。早稲田電子it教育センター在籍中。<br>
+      サウナ・お酒・ゲームから得たユーザー視点を<br>
+      WEB制作に活かすべく、毎日コードと向き合っています。
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Director's Philosophy</h2>
+    <span class="section-title-en">私のディレクター像</span>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        WEBディレクターとは、<strong>「誰のために、何を、なぜ作るか」</strong>を定義する職種だと考えています。
+        デザインやコーディングの善し悪しを判断しながら、クライアントのビジネス課題とユーザーの体験を橋渡しする——そのハブとなる役割に魅力を感じ、この道を志しました。
+      </p>
+      <p>
+        今の私に足りないのは実務経験です。しかし、<strong>企画・設計・進行管理の思考プロセス</strong>は、
+        このポートフォリオを通じてお見せできると確信しています。
+        まずは1年間、現場の最前線で修行をさせていただきたいと考えております。
+      </p>
+      <div style="margin-top:2rem;">
+        <span class="chip">要件定義</span>
+        <span class="chip">ワイヤーフレーム</span>
+        <span class="chip">競合調査</span>
+        <span class="chip">ペルソナ設計</span>
+        <span class="chip">HTML / CSS</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Figma（学習中）</span>
+        <span class="chip">WordPress（学習中）</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:rgba(245,242,236,0.5);letter-spacing:0.05em;margin-bottom:1.5rem;">スキルマトリクス</h3>
+      <div class="skill-matrix">
+        <div class="skill-row">
+          <div class="skill-meta"><span>企画 / 要件整理</span><span>70%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>WEBサイト設計</span><span>55%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:55%;animation-delay:0.1s"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>HTML / CSS コーディング</span><span>65%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:65%;animation-delay:0.2s"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>JavaScript</span><span>40%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:40%;animation-delay:0.3s"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>デザイン（Figma）</span><span>30%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:30%;animation-delay:0.4s"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span>コミュニケーション / 調整力</span><span>80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;animation-delay:0.5s"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" style="background:var(--paper);">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">VIGILO — 制作ドキュメント</h2>
+    <span class="section-title-en">High-End Gym & Sauna Site</span>
+  </div>
+
+  <div class="work-intro">
+    <div>
+      <p>
+        VIGILOは、高級フィットネス施設を想定したフルスクラッチ制作のコンセプトサイトです。
+        「覚醒・静寂・圧倒的な肉体美」というコンセプトを軸に、
+        <strong style="color:var(--ink);font-weight:500;">ターゲット設定 → 競合調査 → サイト構成 → 制作 → 評価</strong>
+        というディレクタープロセス全体を一人で担いました。
+      </p>
+    </div>
+    <div style="border:1px solid var(--rule);padding:1.5rem;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:1rem;">PROJECT INFO</div>
+      <table style="font-size:0.78rem;width:100%;border-collapse:collapse;">
+        <tr><td style="color:var(--muted);padding:0.3rem 0;font-size:0.7rem;font-family:'DM Mono',monospace;">役割</td><td>ディレクション / コーディング</td></tr>
+        <tr><td style="color:var(--muted);padding:0.3rem 0;font-size:0.7rem;font-family:'DM Mono',monospace;">期間</td><td>約3週間</td></tr>
+        <tr><td style="color:var(--muted);padding:0.3rem 0;font-size:0.7rem;font-family:'DM Mono',monospace;">ページ数</td><td>5P（Home / About / Facility / Sauna / Contact）</td></tr>
+        <tr><td style="color:var(--muted);padding:0.3rem 0;font-size:0.7rem;font-family:'DM Mono',monospace;">技術</td><td>HTML / CSS / JavaScript</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PROCESS FLOW -->
+  <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;">制作プロセス</h3>
+  <div class="process-flow">
+    <div class="process-step">
+      <span class="process-step-num">STEP 01</span>
+      <span class="process-step-name">目的定義</span>
+      <p class="process-step-desc">誰に・何を・なぜ伝えるかを言語化。Membershipへの誘導をゴールに設定。</p>
+    </div>
+    <div class="process-step">
+      <span class="process-step-num">STEP 02</span>
+      <span class="process-step-name">競合調査</span>
+      <p class="process-step-desc">高級ジム・スパ系サイト5社を比較。差別化ポイントとして「静」の世界観を決定。</p>
+    </div>
+    <div class="process-step">
+      <span class="process-step-num">STEP 03</span>
+      <span class="process-step-name">IA・WF設計</span>
+      <p class="process-step-desc">サイトマップ→ワイヤーフレームの順に設計。ページ間の導線を整理。</p>
+    </div>
+    <div class="process-step">
+      <span class="process-step-num">STEP 04</span>
+      <span class="process-step-name">制作・実装</span>
+      <p class="process-step-desc">デザイン→コーディングを一人で担当。ローディング・スライダーも実装。</p>
+    </div>
+    <div class="process-step">
+      <span class="process-step-num">STEP 05</span>
+      <span class="process-step-name">振り返り</span>
+      <p class="process-step-desc">良かった点・改善点をドキュメント化。次回への学びを明文化。</p>
+    </div>
+  </div>
+
+  <!-- MOCKUP + DOCS -->
+  <div class="mockup-area" style="margin-top:3rem;">
+    <div>
+      <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">サイトプレビュー</h3>
+      <div class="browser-mockup">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">portfolio-one-zeta-1lyosfmasb.vercel.app</div>
+        </div>
+        <div class="browser-content">
+          <div class="site-preview-bg"></div>
+          <div class="site-preview-nav">
+            <div class="site-preview-logo">VIGILO</div>
+            <div class="site-preview-nav-links">
+              <span>Home</span><span>About</span><span>Facility</span><span>Sauna</span><span>Contact</span>
+            </div>
+          </div>
+          <div class="site-preview-hero">
+            <span class="site-preview-tagline">― 眠っていた力を、静かに覚醒させる場所 ―</span>
+            <div class="site-preview-h1">目覚める<br>研ぎ澄ます</div>
+            <div class="site-preview-btn">MEMBERSHIP 登録はこちら →</div>
+          </div>
+          <div class="site-preview-cards">
+            <div class="site-preview-card">About</div>
+            <div class="site-preview-card">Facility</div>
+            <div class="site-preview-card">Sauna</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);text-align:right;">
+        → <a href="https://portfolio-one-zeta-1lyosfmasb.vercel.app/" style="color:var(--accent2);" target="_blank">サイトを開く</a>
+      </div>
+    </div>
+
+    <div class="mockup-side">
+      <!-- WIREFRAME -->
+      <div class="doc-card">
+        <div class="doc-card-title">ワイヤーフレーム (簡易)</div>
+        <div class="wf-container">
+          <div class="wf-header"></div>
+          <div class="wf-hero"><span>MV AREA — キービジュアル</span></div>
+          <div class="wf-grid">
+            <div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div>
+          </div>
+          <div style="margin-top:0.3rem;background:#e8e4de;height:20px;border-radius:2px;opacity:0.5;"></div>
+        </div>
+      </div>
+
+      <!-- KPI TABLE -->
+      <div class="doc-card">
+        <div class="doc-card-title">目標 KPI 設定</div>
+        <table class="kpi-table">
+          <thead>
+            <tr>
+              <th>指標</th><th>目標値</th><th>優先度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>お問い合わせCV率</td>
+              <td>3%+</td>
+              <td><span class="kpi-badge primary">Primary</span></td>
+            </tr>
+            <tr>
+              <td>平均セッション時間</td>
+              <td>2分+</td>
+              <td><span class="kpi-badge primary">Primary</span></td>
+            </tr>
+            <tr>
+              <td>直帰率</td>
+              <td>60%以下</td>
+              <td><span class="kpi-badge secondary">Secondary</span></td>
+            </tr>
+            <tr>
+              <td>Facility・Sauna遷移率</td>
+              <td>40%+</td>
+              <td><span class="kpi-badge secondary">Secondary</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET & COMPETITIVE -->
+<section id="process" style="background:#faf8f4;">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">リサーチ & 設計思考</h2>
+    <span class="section-title-en">Research & Planning</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:4rem;" class="about-grid-resp">
+
+    <!-- PERSONA -->
+    <div>
+      <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;">ターゲットペルソナ</h3>
+      <div class="persona-card">
+        <div class="persona-avatar">T</div>
+        <div class="persona-name">田中 誠司 — 38歳</div>
+        <div class="persona-role">コンサルティングファーム / マネージャー職</div>
+        <p style="font-size:0.8rem;color:var(--muted);line-height:1.9;margin-bottom:1rem;">
+          年収1,200万円。平日は深夜まで働き、週末に自己投資する習慣あり。
+          「成果が出るなら費用は惜しまない」という価値観を持ち、
+          普通のジムでは満足できなくなっている。サウナも趣味。
+        </p>
+        <div class="persona-tags">
+          <span class="persona-tag">高収入</span>
+          <span class="persona-tag">自己投資意識高い</span>
+          <span class="persona-tag">サウナ好き</span>
+          <span class="persona-tag">ハイクラス志向</span>
+          <span class="persona-tag">プライバシー重視</span>
+          <span class="persona-tag">スマホ利用多め</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPETITIVE -->
+    <div>
+      <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;">競合サイト比較</h3>
+      <div class="comp-grid">
+        <div class="comp-cell header">
+          <div class="comp-name" style="color:white;">評価項目</div>
+          <div class="comp-meta">軸</div>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-name">競合 A</div>
+          <div class="comp-meta">大手チェーン</div>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-name">競合 B</div>
+          <div class="comp-meta">高級スパ</div>
+        </div>
+        <div class="comp-cell comp-highlight">
+          <div class="comp-name" style="color:var(--accent2);">VIGILO</div>
+          <div class="comp-meta">今回の作品</div>
+        </div>
+        <div class="comp-cell header"><div class="comp-name" style="color:white;font-size:0.7rem;">世界観</div></div>
+        <div class="comp-cell"><span class="comp-score">△</span></div>
+        <div class="comp-cell"><span class="comp-score">○</span></div>
+        <div class="comp-cell comp-highlight"><span class="comp-score" style="color:var(--accent);">◎</span></div>
+        <div class="comp-cell header"><div class="comp-name" style="color:white;font-size:0.7rem;">コピー品質</div></div>
+        <div class="comp-cell"><span class="comp-score">○</span></div>
+        <div class="comp-cell"><span class="comp-score">△</span></div>
+        <div class="comp-cell comp-highlight"><span class="comp-score" style="color:var(--accent);">◎</span></div>
+        <div class="comp-cell header"><div class="comp-name" style="color:white;font-size:0.7rem;">CV導線</div></div>
+        <div class="comp-cell"><span class="comp-score">◎</span></div>
+        <div class="comp-cell"><span class="comp-score">○</span></div>
+        <div class="comp-cell comp-highlight"><span class="comp-score" style="color:var(--accent);">△</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;">制作スケジュール（想定）</h3>
+  <div style="border:1px solid var(--rule);padding:2rem;background:white;">
+    <div class="schedule-week-labels">
+      <div></div>
+      <div class="week-labels">
+        <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span>
+      </div>
+    </div>
+    <div class="schedule-bar">
+      <div class="schedule-label">要件定義・企画</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:0;width:20%"></div></div>
+    </div>
+    <div class="schedule-bar">
+      <div class="schedule-label">競合調査・リサーチ</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:10%;width:20%"></div></div>
+    </div>
+    <div class="schedule-bar">
+      <div class="schedule-label">IA・ワイヤーフレーム</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:20%;width:20%"></div></div>
+    </div>
+    <div class="schedule-bar">
+      <div class="schedule-label">デザイン検討</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:30%;width:15%"></div></div>
+    </div>
+    <div class="schedule-bar">
+      <div class="schedule-label">コーディング</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:40%;width:40%"></div></div>
+    </div>
+    <div class="schedule-bar">
+      <div class="schedule-label">チェック・修正</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:75%;width:20%"></div></div>
+    </div>
+    <div class="schedule-bar" style="border-bottom:none;">
+      <div class="schedule-label">振り返り</div>
+      <div class="schedule-track"><div class="schedule-fill done" style="left:90%;width:10%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section class="reflection" id="reflection">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">振り返りと学び</h2>
+    <span class="section-title-en">Reflection</span>
+  </div>
+  <div class="reflection-grid">
+    <div class="reflection-col">
+      <h3>できたこと</h3>
+      <div class="reflection-item">
+        <div class="reflection-bullet"></div>
+        <p>コンセプト「覚醒・静寂」を世界観・コピー・デザインで一貫して表現できた。ターゲット設定からコピーライティングまで、企画レベルで軸がぶれなかった。</p>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-bullet"></div>
+        <p>5ページ構成で導線を意識したIA設計を実施。Home → 各カテゴリ → Contact という流れを作ることができた。</p>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-bullet"></div>
+        <p>ローディングアニメーション・画像スライダーなど、演出面でユーザー体験を意識した実装ができた。</p>
+      </div>
+    </div>
+    <div class="reflection-col">
+      <h3>次の課題</h3>
+      <div class="reflection-item">
+        <div class="reflection-bullet"></div>
+        <p>CVボタンの設置が少なく、コンバージョン導線が弱い。ディレクターとして「目標数値から逆算した設計」をする必要があると実感した。</p>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-bullet"></div>
+        <p>ワイヤーフレームをFigmaなどのツールで正式に作成し、設計の意図を可視化・説明できる形にする必要がある。</p>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-bullet"></div>
+        <p>スマートフォン表示のレスポンシブ対応が不完全。今後はモバイルファーストで設計する意識を持ちたい。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER GOAL -->
+<div class="goal-section">
+  <div class="goal-tag">CAREER GOAL</div>
+  <h2 class="goal-headline">1年後、<br>クライアントの課題を<br>解決できるディレクターへ。</h2>
+  <p class="goal-body">
+    まず現場で「動く・伝わる・売れる」WEBサイト制作の実務を徹底的に学びます。
+    企画・進行・コーディング・改善——すべての工程に関わることで、
+    真の意味でのWEBディレクターとしての基礎を作ります。
+    雇用形態は問いません。修行の機会をいただければ、全力で貢献します。
+  </p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <span class="chip">修行意欲 ◎</span>
+    <span class="chip">学習速度 ◎</span>
+    <span class="chip">コミュニケーション ◎</span>
+    <span class="chip">雇用形態不問</span>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-row" id="contact">
+  <div class="contact-left">
+    <h2>お声がけください</h2>
+    <p>修行の機会を探しています。まずはカジュアルにお話しできればと思います。</p>
+  </div>
+  <div class="contact-links">
+    <a href="https://portfolio-one-zeta-1lyosfmasb.vercel.app/" class="contact-link primary" target="_blank">作品を見る →</a>
+    <a href="https://432shp.github.io/midterm/index.html" class="contact-link" target="_blank">訓練校サイト</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Hwansil Pak — WEB Director Candidate</p>
+  <p>PORTFOLIO v1.0 — 2025</p>
+</footer>
+
+<script>
+// Fade up on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Skill bar animation on scroll
+const skillObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(fill => {
+        fill.style.transform = 'scaleX(1)';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelector('.skill-matrix') && skillObs.observe(document.querySelector('.skill-matrix'));
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.style.borderBottomColor = 'rgba(216,210,200,0.8)';
+  } else {
+    nav.style.borderBottomColor = 'var(--rule)';
+  }
+});
+</script>
+</body>
+</html>
