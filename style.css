@@ -173,7 +173,7 @@ nav {
   font-size: 0.8rem;
 }
 .chip-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-.chip { border: 1px solid var(--rule); padding: 0.4rem 1rem; font-size: 0.6rem; letter-spacing: 0.1em; }
+.chip { border: 1px solid var(--rule); padding: 0.4rem 1rem; font-size: 0.6rem; letter-spacing: 0.1em; background-color: #ffffff;}
 
 /* KEYWORD 02 : WORK & PROCESS */
 .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
