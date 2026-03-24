@@ -1,4 +1,5 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 :root {
   --ink: #111111;
   --paper: #ffffff;
@@ -7,8 +8,7 @@
   --muted: #888888;
   
   /* OS標準フォントの設定 */
-  --font-jp: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Helvetica Neue", Arial, Meiryo, sans-serif;
-  --font-serif: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", "ヒラギノ明朝 ProN W3", "Times New Roman", Times, serif;
+--font-jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Helvetica Neue", Arial, Meiryo, sans-serif;  --font-serif: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", "ヒラギノ明朝 ProN W3", "Times New Roman", Times, serif;
   --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -103,9 +103,15 @@ nav {
   color: var(--ink);
   text-decoration: none;
   text-transform: uppercase;
-  transition: all 0.3s;
+  background: transparent;
+  transition: all 0.3s ease; /* アニメーションを滑らかにする設定 */
 }
-.hero-btn:hover { background: var(--ink); color: var(--paper); }
+.hero-btn:hover {
+background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-4px); /* 上に4px浮き上がる */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* 影をつける */
+}
 
 .hero-right { position: relative; }
 .img-placeholder {
@@ -142,7 +148,7 @@ nav {
 /* SECTION COMMON */
 .fashion-sec {
   position: relative;
-  padding: 10rem 5%;
+  padding: 13rem 5%;
   border-bottom: 1px solid var(--rule);
 }
 .bg-num {
