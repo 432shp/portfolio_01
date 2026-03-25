@@ -40,7 +40,6 @@ body {
 }
 .marquee-text {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
   letter-spacing: 0.2em;
   animation: scroll 20s linear infinite;
 }
@@ -147,7 +146,7 @@ background: var(--ink);
   bottom: -20px; left: -20px;
   background: var(--ink); color: var(--paper);
   padding: 1rem 2rem;
-  font-size: 0.75rem; letter-spacing: 0.2em;
+  letter-spacing: 0.2em;
 }
 
 /* SECTION COMMON */
@@ -204,7 +203,7 @@ background: var(--ink);
 .process-box { border: 1px solid var(--rule); padding: 2rem 1.5rem; background: #fafafa; }
 .p-num { font-size: 0.65rem; color: var(--accent); margin-bottom: 1rem; display: block; letter-spacing: 0.2em; }
 .p-title { font-weight: normal; font-size: 0.9rem; margin-bottom: 0.8rem; }
-.p-desc { font-size: 0.75rem; color: #666; line-height: 1.8; }
+.p-desc { color: #666; line-height: 1.8; }
 
 /* KEYWORD 03 */
 #keyword03 h4 {
@@ -214,7 +213,7 @@ background: var(--ink);
 /* FOOTER */
 footer { padding: 5rem 5%; text-align: center; }
 .footer-logo { font-size: 2rem; margin-bottom: 1rem; display: block; }
-.footer-copy { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+.footer-copy { color: var(--muted); letter-spacing: 0.1em; }
 
 /* RESPONSIVE */
 @media(max-width: 900px) {
