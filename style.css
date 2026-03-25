@@ -64,7 +64,7 @@ nav {
 }
 .nav-logo { font-size: 1.5rem; text-decoration: none; color: var(--ink); letter-spacing: 0.1em; }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a { font-size: 0.7rem; color: var(--ink); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+.nav-links a { color: var(--ink); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
 
 .nav-links a {
   transition: opacity 0.3s ease; /* 0.3秒かけて滑らかに変化 */
@@ -104,7 +104,6 @@ nav {
   display: inline-block;
   border: 1px solid var(--ink);
   padding: 1rem 2.5rem;
-  font-size: 0.7rem;
   letter-spacing: 0.2em;
   color: var(--ink);
   text-decoration: none;
@@ -139,7 +138,7 @@ background: var(--ink);
   content: 'IMAGE PLACEHOLDER';
   position: absolute;
   top: 50%; left: 50%; transform: translate(-50%, -50%);
-  font-family: var(--font-sans); font-size: 0.7rem; color: #aaa; letter-spacing: 0.1em;
+  font-family: var(--font-sans); color: #aaa; letter-spacing: 0.1em;
 }
 */
 
@@ -173,7 +172,7 @@ background: var(--ink);
   margin: 0 auto;
 }
 .sec-title h2 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.2; font-weight: normal; }
-.sec-title span { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; }
+.sec-title span { color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; }
 
 /* KEYWORD 01 : PHILOSOPHY */
 .phil-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
@@ -191,7 +190,7 @@ background: var(--ink);
 .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
 .work-info table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
 .work-info th, .work-info td { padding: 1.2rem 0; border-bottom: 1px solid var(--rule); font-size: 0.85rem; text-align: left; }
-.work-info th { font-family: var(--font-sans); font-size: 0.7rem; color: var(--muted); width: 120px; letter-spacing: 0.1em; }
+.work-info th { font-family: var(--font-sans); color: var(--muted); width: 120px; letter-spacing: 0.1em; }
 .work-info table a {
   display: inline-block; /* 動き（transform）を有効にするための必須設定 */
   transition: all 0.3s ease;
