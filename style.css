@@ -200,7 +200,7 @@ background: var(--ink);
   transform: translateX(4px); /* 右に4pxスッと動く */
 }
 
-.process-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
+.process-flow { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 3rem; }
 .process-box { border: 1px solid var(--rule); padding: 2rem 1.5rem; background: #fafafa; }
 .p-num { font-size: 0.65rem; color: var(--accent); margin-bottom: 1rem; display: block; letter-spacing: 0.2em; }
 .p-title { font-weight: normal; font-size: 0.9rem; margin-bottom: 0.8rem; }
