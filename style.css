@@ -73,13 +73,13 @@ nav {
   opacity: 0.5; /* マウスを乗せると半透明になる */
 }
 /* HERO (雑誌風レイアウト) */
-.hero {
-  min-height: 100vh;
+  .hero {
   position: relative;
   display: flex;
   align-items: center;
   padding: 100px 5% 0;
 }
+
 .hero-bg-text {
   position: absolute;
   top: 50%; left: 50%;
@@ -216,18 +216,7 @@ footer { padding: 5rem 5%; text-align: center; }
 .footer-logo { font-size: 2rem; margin-bottom: 1rem; display: block; }
 .footer-copy { color: var(--muted); letter-spacing: 0.1em; }
 
-/* RESPONSIVE */
-@media(max-width: 900px) {
-  nav { padding: 0.5rem 5%; }
-  .nav-links { display: none; }
-  .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .hero-bg-text { font-size: 25vw; top: 30%; }
-  .sec-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .phil-content, .work-grid { grid-template-columns: 1fr; }
-  .process-flow { grid-template-columns: 1fr 1fr; }
-  .bg-num { font-size: 8rem; top: -1rem; left: 0; opacity: 0.5; }
-}
-/* REFLECTION用の左右分割レイアウト */
+/* REFLECTION用の左右分割レイアウト (基本設定) */
 .reflection-container {
   display: flex;
   flex-direction: column;
@@ -261,7 +250,17 @@ footer { padding: 5rem 5%; text-align: center; }
   letter-spacing: 0.05em;
 }
 
+/* RESPONSIVE (スマホ幅 900px以下の設定を1箇所に集約) */
 @media(max-width: 900px) {
+  nav { padding: 0.5rem 5%; }
+  .nav-links { display: none; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-bg-text { font-size: 11vw; top: 30%; }
+  .sec-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .phil-content, .work-grid { grid-template-columns: 1fr; }
+  .process-flow { grid-template-columns: 1fr 1fr; }
+  .bg-num { font-size: 8rem; top: -1rem; left: 0; opacity: 0.5; }
+  
   .reflection-row {
     grid-template-columns: 1fr;
     gap: 1.5rem;
