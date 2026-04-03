@@ -133,15 +133,6 @@ background: var(--ink);
   display: block; /* 画像の下に隙間ができないようにする */
 }
 
-/* 削除：以下の擬似要素は不要になるため削除します
-.img-placeholder::after {
-  content: 'IMAGE PLACEHOLDER';
-  position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  font-family: var(--font-sans); color: #aaa; letter-spacing: 0.1em;
-}
-*/
-
 .hero-tag {
   position: absolute;
   bottom: -20px; left: -20px;
