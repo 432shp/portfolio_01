@@ -241,7 +241,7 @@ footer { padding: 5rem 5%; text-align: center; }
   letter-spacing: 0.05em;
 }
 
-/* RESPONSIVE (スマホ幅 900px以下の設定を1箇所に集約) */
+/* RESPONSIVE */
 @media(max-width: 900px) {
   nav { padding: 0.5rem 5%; }
   .nav-links { display: none; }
@@ -251,7 +251,17 @@ footer { padding: 5rem 5%; text-align: center; }
   .phil-content, .work-grid { grid-template-columns: 1fr; }
   .process-flow { grid-template-columns: 1fr 1fr; }
   .bg-num { font-size: 8rem; top: -1rem; left: 0; opacity: 0.5; }
-  
+
+  .hero {
+    display: none !important;
+  }
+
+ .process-flow {
+    display: flex !important;
+    flex-direction: column !important; /* 縦並びにする指示 */
+    gap: 30px !important; /* ステップ間の隙間を30pxに設定 */
+  }
+
   .reflection-row {
     grid-template-columns: 1fr;
     gap: 1.5rem;
